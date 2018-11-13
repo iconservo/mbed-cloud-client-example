@@ -44,6 +44,10 @@
             "target.mbed_app_start"            : "0x08010400",
             "update-client.bootloader-details" : "(0x08000000+30*1024)",
             "update-client.application-details": "(0x08000000+64*1024)"
+        },
+        "DISCO_L475VG_IOT01A" : {
+            "target.macros_add" : ["LED_RED=NC"],
+            "network-interface" : "WIFI_ISM43362"
         }
     },
     "config": {
