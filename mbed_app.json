@@ -66,6 +66,14 @@
         "led-pinname": {
             "help": "PinName for led, which is attached to led blink resource.",
             "value": "LED_RED"
+        },
+        "wifi-ssid": {
+            "help": "WiFi SSID",
+            "value": "\"SSID\""
+        },
+        "wifi-password": {
+            "help": "WiFi Password",
+            "value": "\"PASSWORD\""
         }
     }
 }
