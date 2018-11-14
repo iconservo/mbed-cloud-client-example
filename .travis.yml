@@ -11,6 +11,8 @@ matrix:
    - os: linux
      env: ARMGCC_VERSION="6.3.1" BOARD=NUCLEO_F429ZI
    - os: linux
+     env: ARMGCC_VERSION="6.3.1" BOARD=HEXIWEAR
+   - os: linux
      env: ARMGCC_VERSION="6.3.1" BOARD=K64F
 
 before_install:

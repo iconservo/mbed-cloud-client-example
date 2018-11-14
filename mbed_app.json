@@ -45,8 +45,33 @@
             "update-client.bootloader-details" : "(0x08000000+30*1024)",
             "update-client.application-details": "(0x08000000+64*1024)"
         },
+        "HEXIWEAR" : {
+            "target.macros_add" : [
+              "MBED_CONF_APP_TIMER_THREAD_STACK_SIZE=128",
+              "MBED_CONF_APP_IDLE_THREAD_STACK_SIZE=128"
+            ],
+            "mbed-client.event-loop-size": 10,
+            "events.shared-eventsize" : 10,
+            "events.shared-highprio-eventsize" : 10,
+            "events.shared-stacksize" : 64,
+            "events.shared-highprio-stacksize" : 64,
+            "nanostack-hal.event-loop-use-mbed-events": true,
+            "network-interface" : "WIFI_ESP8266"
+        },
         "DISCO_L475VG_IOT01A" : {
-            "target.macros_add" : ["LED_RED=NC"],
+            "target.macros_add" : [
+              "LED_RED=NC",
+              "MBED_CONF_APP_TIMER_THREAD_STACK_SIZE=128",
+              "MBED_CONF_APP_IDLE_THREAD_STACK_SIZE=128"
+            ],
+            "mbed-client.event-loop-size": 4,
+            "update-client.storage-size"     : "(1024*256*2)",
+            "events.shared-eventsize" : 4,
+            "events.shared-stacksize" : 32,
+            "events.shared-highprio-eventsize" : 4,
+            "events.shared-highprio-stacksize" : 32,
+            "nanostack-hal.event_loop_thread_stack_size": 32,
+            "nanostack-hal.event-loop-use-mbed-events": true,
             "network-interface" : "WIFI_ISM43362"
         }
     },
