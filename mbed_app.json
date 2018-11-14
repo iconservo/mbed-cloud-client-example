@@ -46,10 +46,6 @@
             "update-client.application-details": "(0x08000000+64*1024)"
         },
         "HEXIWEAR" : {
-            "target.macros_add" : [
-              "MBED_CONF_APP_TIMER_THREAD_STACK_SIZE=128",
-              "MBED_CONF_APP_IDLE_THREAD_STACK_SIZE=128"
-            ],
             "mbed-client.event-loop-size": 10,
             "events.shared-eventsize" : 10,
             "events.shared-highprio-eventsize" : 10,
@@ -60,9 +56,7 @@
         },
         "DISCO_L475VG_IOT01A" : {
             "target.macros_add" : [
-              "LED_RED=NC",
-              "MBED_CONF_APP_TIMER_THREAD_STACK_SIZE=128",
-              "MBED_CONF_APP_IDLE_THREAD_STACK_SIZE=128"
+              "LED_RED=NC"
             ],
             "mbed-client.event-loop-size": 4,
             "update-client.storage-size"     : "(1024*256*2)",
@@ -76,6 +70,12 @@
         }
     },
     "config": {
+        "timer-thread-stack-size" : {
+            "value" : 96
+        },
+        "idle-thread-stack-size" : {
+            "value" : 72
+        },
         "network-interface": {
             "help": "Options are ETHERNET, WIFI_ESP8266, WIFI_ODIN",
             "value": "ETHERNET"
