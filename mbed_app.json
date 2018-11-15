@@ -46,7 +46,11 @@
             "update-client.application-details": "(0x08000000+64*1024)"
         },
         "DISCO_L475VG_IOT01A" : {
-            "target.macros_add" : ["LED_RED=NC"],
+            "target.macros_add" : [
+                "PRIMARY_PARTITION_SIZE=4096",
+                "PAL_BOARD_SPECIFIC_CONFIG=\"TARGET_NUCLEO_F429ZI/NUCLEO_default.h\"",
+                "LED_RED=NC"
+                ],
             "network-interface" : "WIFI_ISM43362",
             "storage-selector.storage": "HEAP",
             "storage-selector.filesystem" : "LITTLE",
