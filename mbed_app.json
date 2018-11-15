@@ -47,7 +47,10 @@
         },
         "DISCO_L475VG_IOT01A" : {
             "target.macros_add" : ["LED_RED=NC"],
-            "network-interface" : "WIFI_ISM43362"
+            "network-interface" : "WIFI_ISM43362",
+            "storage-selector.storage": "HEAP",
+            "storage-selector.filesystem" : "LITTLE",
+            "storage-selector.heap_size": 4096
         }
     },
     "config": {
