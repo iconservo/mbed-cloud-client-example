@@ -77,6 +77,13 @@
             "sotp-section-2-address"           : "(0x08000000+48*1024)",
             "sotp-section-2-size"              : "(16*1024)"
         },
+        "DISCO_L475VG_IOT01A" : {
+            "primary_partition_size"           : "(32*1024)",
+            "sotp-section-1-address"           : "(0x080C0000+32*1024)",
+            "sotp-section-1-size"              : "(16*1024)",
+            "sotp-section-2-address"           : "(0x080C0000+48*1024)",
+            "sotp-section-2-size"              : "(16*1024)"
+        },
         "NUCLEO_F429ZI": {
             "sotp-section-1-address"           : "(0x08000000+32*1024)",
             "sotp-section-1-size"              : "(16*1024)",

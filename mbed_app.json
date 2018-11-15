@@ -47,17 +47,24 @@
         },
         "DISCO_L475VG_IOT01A" : {
             "target.macros_add" : [
-                "PRIMARY_PARTITION_SIZE=4096",
-                "PAL_BOARD_SPECIFIC_CONFIG=\"TARGET_NUCLEO_F429ZI/NUCLEO_default.h\"",
                 "LED_RED=NC"
                 ],
             "network-interface" : "WIFI_ISM43362",
             "storage-selector.storage": "HEAP",
             "storage-selector.filesystem" : "LITTLE",
-            "storage-selector.heap_size": 4096
+            "storage-selector.heap_size": 32768,
+            "littlefs.enable_info" : true,
+            "littlefs.enable_debug" : true,
+            "littlefs.enable_warn" : true,
+            "littlefs.enable_error" : true
         }
     },
     "config": {
+        "trace-level": {
+            "help": "Options are TRACE_LEVEL_ERROR,TRACE_LEVEL_WARN,TRACE_LEVEL_INFO,TRACE_LEVEL_DEBUG",
+            "macro_name": "MBED_TRACE_MAX_LEVEL",
+            "value": "TRACE_LEVEL_DEBUG"
+        },
         "network-interface": {
             "help": "Options are ETHERNET, WIFI_ESP8266, WIFI_ODIN",
             "value": "ETHERNET"
