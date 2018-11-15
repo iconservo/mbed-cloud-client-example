@@ -125,6 +125,8 @@ void factory_reset(void *)
 
 void main_application(void)
 {
+    printf("Hello world!\n");
+    
     // https://github.com/ARMmbed/sd-driver/issues/93 (IOTMORF-2327)
     // SD-driver initialization can fails with bd->init() -5005. This wait will
     // allow the board more time to initialize.

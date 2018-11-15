@@ -1,0 +1,6 @@
+r
+#loadbin BUILD/K64F/GCC_ARM/mbed-cloud-client-example_application.bin, 0x0000a400
+loadbin combined.bin, 0x0
+go
+exit
+
