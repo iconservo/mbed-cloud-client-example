@@ -1,0 +1,131 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2018.11.16 12:54:50 =~=~=~=~=~=~=~=~=~=~=~=
+[BOOT] Mbed Bootloader
+[BOOT] ARM: 00000000000000000000
+[BOOT] OEM: 00000000000000000000
+[BOOT] Layout: 0 70E4
+[BOOT] Active firmware integrity check:
+[BOOT] [+++                                                                   ][BOOT] [++++++                                                                ][BOOT] [++++++++                                                              ][BOOT] [+++++++++++                                                           ][BOOT] [++++++++++++++                                                        ][BOOT] [++++++++++++++++                                                      ][BOOT] [+++++++++++++++++++                                                   ][BOOT] [++++++++++++++++++++++                                                ][BOOT] [++++++++++++++++++++++++                                              ][BOOT] [+++++++++++++++++++++++++++                                           ][BOOT] [++++++++++++++++++++++++++++++                                        ][BOOT] [++++++++++++++++++++++++++++++++                                      ][BOOT] [+++++++++++++++++++++++++++++++++++                                   ][BOOT] [++++++++++++++++++++++++++++++++++++++                                ][BOOT] [++++++++++++++++++++++++++++++++++++++++                              ][BOOT] [+++++++++++++++++++++++++++++++++++++++++++                           ][BOOT] [++++++++++++++++++++++++++++++++++++++++++++++                        ][BOOT] [++++++++++++++++++++++++++++++++++++++++++++++++                      ][BOOT] [+++++++++++++++++++++++++++++++++++++++++++++++++++                   ][BOOT] [++++++++++++++++++++++++++++++++++++++++++++++++++++++                ][BOOT] [++++++++++++++++++++++++++++++++++++++++++++++++++++++++              ][BOOT] [+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++           ][BOOT] [++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++        ][BOOT] [++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++      ][BOOT] [+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   ][BOOT] [++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++][BOOT] [++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++]
+[BOOT] SHA256: E905D26BC58D466089319ACE84499215309AB9AAB7F41BBBF3C84C137B0FF96F
+[BOOT] Version: 1542365651
+[BOOT] Slot 0 is empty
+[BOOT] Active firmware up-to-date
+[BOOT] Application's start address: 0xA400
+[BOOT] Application's jump address: 0xAA8D
+[BOOT] Application's stack address: 0x20030000
+[BOOT] Forwarding to application...
+
+mcc_platform_storage_init() - bd->size() = 31914983424
+mcc_platform_storage_init() - BlockDevice init OK.
+Application ready. Build at: Nov 16 2018 12:48:39
+Mbed OS version 5.10.1
+
+*** M2M object sizes in bytes ***
+M2MBase: 12
+M2MObject: 28
+M2MObjectInstance: 28
+M2MResource: 44
+M2MResourceInstance: 24
+M2MDevice: 32
+M2MFirmware: 32
+M2MServer: 32
+M2MSecurity: 28
+M2MBlockMessage: 20
+M2MReportHandler: 112
+*************************************
+
+*** M2M heap stats in bytes***
+M2MDevice heap size: 705
+M2MDevice leaked: 28bytes
+M2MServer heap size: 828
+M2MSecurity heap size: 100
+M2MFirmware heap size: 472
+M2MFirmware leaked: 4bytes
+M2MObject heap size: 100
+M2MObjectInstance heap size: 100
+M2MResource heap size: 122
+*************************************
+
+**** current_size: 8586
+**** max_size    : 9169
+** MBED THREAD STASK STATS **
+Thread: 0x20012bf4, Stack size: 5120, Max stack: 1880
+Thread: 0x20006f04, Stack size: 512, Max stack: 88
+Thread: 0x20006ec0, Stack size: 768, Max stack: 104
+Thread: 0x20005da0, Stack size: 8192, Max stack: 96
+Thread: 0x20002b08, Stack size: 1024, Max stack: 304
+*****************************
+
+Start simple mbed Cloud Client
+** MBED THREAD STASK STATS **
+Thread: 0x20012bf4, Stack size: 5120, Max stack: 1880
+Thread: 0x20006f04, Stack size: 512, Max stack: 88
+Thread: 0x20006ec0, Stack size: 768, Max stack: 104
+Thread: 0x20005da0, Stack size: 8192, Max stack: 96
+Thread: 0x20002b08, Stack size: 1024, Max stack: 304
+*****************************
+
+Using hardcoded Root of Trust, not suitable for production use.
+Starting developer flow
+Developer credentials already exist, continuing..
+Client initialized
+**** current_size: 9956
+**** max_size    : 15970
+** MBED THREAD STASK STATS **
+Thread: 0x20012bf4, Stack size: 5120, Max stack: 3888
+Thread: 0x20006f04, Stack size: 512, Max stack: 88
+Thread: 0x20006ec0, Stack size: 768, Max stack: 104
+Thread: 0x20005da0, Stack size: 8192, Max stack: 96
+Thread: 0x20002b08, Stack size: 1024, Max stack: 304
+*****************************
+
+*************************************
+objects       : 1
+obj instances : 5
+resources     : 25
+heap used     : 3892
+*************************************
+** MBED THREAD STASK STATS **
+Thread: 0x20012bf4, Stack size: 5120, Max stack: 3888
+Thread: 0x20006f04, Stack size: 512, Max stack: 88
+Thread: 0x20006ec0, Stack size: 768, Max stack: 104
+Thread: 0x20005da0, Stack size: 8192, Max stack: 96
+Thread: 0x20002b08, Stack size: 1024, Max stack: 304
+*****************************
+
+mcc_platform_init_connection()
+NSAPI_STATUS_CONNECTING
+NSAPI_STATUS_CONNECTING
+NSAPI_STATUS_GLOBAL_UP
+Network initialized, connecting...
+Register being called
+**** current_size: 19739
+**** max_size    : 21700
+** MBED THREAD STASK STATS **
+Thread: 0ze: 5120, Max stack: 3888
+Thread: 0x20005da0, Stack size: 8192, Max stack: 1792
+Thread: 0x20006f04, Stack size: 512, Max stack: 96
+Thread: 0x20003824, Stack size: 1200, Max stack: 880
+Thread: 0x2000312c, Stack size: 1024, Max stack: 192
+Thread: 0x20006ec0, Stack size: 768, Max stack: 104
+Thread: 0x20006098, Stack size: 512, Max stack: 216
+Thread: 0x20002b08, Stack size: 1024, Max stack: 304
+*****************************
+
+
+Client registered
+Endpoint Name: 01671781c9fa00000000000100100367
+Device Id: 01671781c9fa00000000000100100367
+**** current_size: 45760
+**** max_size    : 54531
+** MBED THREAD STASK STATS **
+Thread: 0x20005da0, Stack size: 8192, Max stack: 3616
+Thread: 0x20006f04, Stack size: 512, Max stack: 96
+Thread: 0x20003824, Stack size: 1200, Max stack: 880
+Thread: 0x20012bf4, Stack size: 5120, Max stack: 3888
+Thread: 0x2000312c, Stack size: 1024, Max stack: 192
+Thread: 0x20006ec0, Stack size: 768, Max stack: 104
+Thread: 0x20006098, Stack size: 512, Max stack: 216
+Thread: 0x20002b08, Stack size: 1024, Max stack: 304
+*****************************
+
+Message status callback: (3200/0/5501) subscribed

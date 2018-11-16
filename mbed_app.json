@@ -1,7 +1,9 @@
 {
     "macros": [
         "ARM_UC_USE_PAL_BLOCKDEVICE=1",
-        "MBED_CLOUD_CLIENT_UPDATE_STORAGE=ARM_UCP_FLASHIAP_BLOCKDEVICE"
+        "MBED_CLOUD_CLIENT_UPDATE_STORAGE=ARM_UCP_FLASHIAP_BLOCKDEVICE",
+        "MBED_HEAP_STATS_ENABLED=1",
+        "MBED_STACK_STATS_ENABLED=1"        
     ],
     "target_overrides": {
         "*": {
@@ -18,7 +20,8 @@
             "mbed-trace.enable": null,
             "nsapi.default-wifi-security"       : "WPA_WPA2",
             "nsapi.default-wifi-ssid"           : "\"SSID\"",
-            "nsapi.default-wifi-password"       : "\"Password\""
+            "nsapi.default-wifi-password"       : "\"Password\"",
+            "platform.memory-tracing-enabled": true
         },
         "STM_EMAC": {
             "lwip.pbuf-pool-size" : 16,

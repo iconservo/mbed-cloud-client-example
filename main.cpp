@@ -76,6 +76,16 @@ void button_status_callback(const M2MBase& object,
                             const M2MBase::MessageDeliveryStatus status,
                             const M2MBase::MessageType /*type*/)
 {
+#ifdef MBED_HEAP_STATS_ENABLED
+    print_m2mobject_stats();
+#endif
+#ifdef MBED_HEAP_STATS_ENABLED
+    print_heap_stats();
+#endif
+#ifdef MBED_STACK_STATS_ENABLED
+    print_stack_statistics();
+#endif
+    
     switch(status) {
         case M2MBase::MESSAGE_STATUS_BUILD_ERROR:
             printf("Message status callback: (%s) error when building CoAP message\n", object.uri_path());
