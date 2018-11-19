@@ -27,6 +27,19 @@
 #include "certificate_enrollment_user_cb.h"
 #endif
 
+
+#ifndef WIFI_ESP8266
+#define WIFI_ESP8266 0
+#endif
+
+#if WIFI_ESP8266
+#include "ESP8266Interface.h"
+WiFiInterface *WiFiInterface::get_default_instance() {
+    static ESP8266Interface esp(MBED_CONF_ESP8266_TX, MBED_CONF_ESP8266_RX, MBED_CONF_ESP8266_DEBUG);
+    return &esp;
+}
+#endif
+
 // event based LED blinker, controlled via pattern_resource
 static Blinky blinky;
 

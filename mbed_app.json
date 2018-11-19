@@ -3,7 +3,8 @@
         "ARM_UC_USE_PAL_BLOCKDEVICE=1",
         "MBED_CLOUD_CLIENT_UPDATE_STORAGE=ARM_UCP_FLASHIAP_BLOCKDEVICE",
         "MBED_HEAP_STATS_ENABLED=1",
-        "MBED_STACK_STATS_ENABLED=1"        
+        "MBED_STACK_STATS_ENABLED=1",
+        "WIFI_ESP8266=1"
     ],
     "target_overrides": {
         "*": {
@@ -13,14 +14,14 @@
             "platform.stdio-convert-newlines"   : true,
             "platform.stdio-buffered-serial"    : true,
             "mbed-client.event-loop-size"       : 1024,
-            "nanostack-hal.event_loop_thread_stack_size": 8192,
+            "nanostack-hal.event_loop_thread_stack_size": 4096,
             "update-client.storage-address"     : "(1024*1024*64)",
             "update-client.storage-size"        : "(1024*1024*2)",
             "update-client.storage-locations"   : 1,
             "mbed-trace.enable": null,
             "nsapi.default-wifi-security"       : "WPA_WPA2",
-            "nsapi.default-wifi-ssid"           : "\"SSID\"",
-            "nsapi.default-wifi-password"       : "\"Password\"",
+            "nsapi.default-wifi-ssid"           : "\"CiklumBiowaveLabs\"",
+            "nsapi.default-wifi-password"       : "\"Biowave_is_the_best\"",
             "platform.memory-tracing-enabled": true
         },
         "STM_EMAC": {
@@ -28,9 +29,12 @@
             "lwip.mem-size"       : 12500
         },
         "K64F": {
-            "target.network-default-interface-type" : "ETHERNET",
+            "target.network-default-interface-type" : "WIFI",
             "update-client.bootloader-details"      : "0x00007188",
-            "update-client.application-details"     : "(40*1024)"
+            "update-client.application-details"     : "(40*1024)",
+            "esp8266.rx": "D0",
+            "esp8266.tx": "D1",
+            "esp8266.debug": false            
         },
         "K66F": {
             "target.network-default-interface-type" : "ETHERNET",
@@ -76,6 +80,6 @@
         "led-pinname"   : {
             "help"      : "PinName for led, which is attached to led blink resource.",
             "value"     : "LED_RED"
-        }
+        }     
     }
 }
