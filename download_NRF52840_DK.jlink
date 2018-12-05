@@ -1,0 +1,5 @@
+r
+loadfile BUILD/NRF52840_DK/GCC_ARM/mbed-cloud-client-example.hex
+go
+exit
+

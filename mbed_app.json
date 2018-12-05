@@ -36,6 +36,23 @@
             "esp8266.tx": "D1",
             "esp8266.debug": false            
         },
+        "NRF52840_DK": {
+            "target.network-default-interface-type" : "WIFI",
+            "target.bootloader_img"                 : "bootloader/mbed-bootloader-NRF52840_DK.hex",
+	        "target.app_offset"                     : "0x33000",
+            "target.header_offset"                  : "0x32C00",
+            "update-client.application-details"     : "((512+508)*1024)",
+            "update-client.storage-address"         : "((512+236)*1024)",
+            "update-client.storage-size"            : "((512+228)*1024)",
+            "update-client.storage-locations"       : 1,
+            "update-client.storage-page"            : 4 ,           
+            "esp8266.rx": "P0_8",
+            "esp8266.tx": "P0_6",
+            "esp8266.debug": true,          
+ 	        "target.macros_add" : [
+                "LED_RED=NC"
+            ]
+        },
         "K66F": {
             "target.network-default-interface-type" : "ETHERNET",
             "update-client.bootloader-details"      : "0x00007188",
