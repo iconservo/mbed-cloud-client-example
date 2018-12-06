@@ -27,6 +27,14 @@
 #include "certificate_enrollment_user_cb.h"
 #endif
 
+#include "SeggerRTT.h"
+
+#if 1
+FileHandle* mbed::mbed_override_console(int fd) {
+    static SeggerRTT rtt;
+    return &rtt;
+}
+#endif
 
 #ifndef WIFI_ESP8266
 #define WIFI_ESP8266 0
@@ -46,7 +54,18 @@ static Blinky blinky;
 static void main_application(void);
 
 int main(void)
-{
+{       
+    wait(0.5);
+    printf("\r\n\r\nHello world!\r\n");
+    
+#if 0    
+    wait(0.5);    
+    for (;;) {
+        printf("tick!\r\n");
+        wait(0.5);        
+    }
+#endif   
+    
     mcc_platform_run_program(main_application);
 }
 

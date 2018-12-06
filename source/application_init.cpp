@@ -258,5 +258,7 @@ bool application_init(void)
         return false;
     }
 
+    printf("application_init_fcc initializing OK\n");
+
     return true;
 }

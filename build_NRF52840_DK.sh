@@ -1,4 +1,5 @@
 #!/bin/sh
 
-mbed compile -m NRF52840_DK --stats-depth=10
+mbed compile -m NRF52840_DK
+#mbed compile -m NRF52840_DK --stats-depth=10
 # python mem_stats.py --limit=20

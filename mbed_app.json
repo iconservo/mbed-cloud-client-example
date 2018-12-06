@@ -14,7 +14,7 @@
             "platform.stdio-convert-newlines"   : true,
             "platform.stdio-buffered-serial"    : true,
             "mbed-client.event-loop-size"       : 1024,
-            "nanostack-hal.event_loop_thread_stack_size": 4096,
+            "nanostack-hal.event_loop_thread_stack_size": 8192,
             "update-client.storage-address"     : "(1024*1024*64)",
             "update-client.storage-size"        : "(1024*1024*2)",
             "update-client.storage-locations"   : 1,
@@ -41,6 +41,7 @@
             "target.bootloader_img"                 : "bootloader/mbed-bootloader-NRF52840_DK.hex",
 	        "target.app_offset"                     : "0x33000",
             "target.header_offset"                  : "0x32C00",
+            "update-client.bootloader-details"      : "0x00007188",            
             "update-client.application-details"     : "((512+508)*1024)",
             "update-client.storage-address"         : "((512+236)*1024)",
             "update-client.storage-size"            : "((512+228)*1024)",
@@ -49,9 +50,19 @@
             "esp8266.rx": "P0_8",
             "esp8266.tx": "P0_6",
             "esp8266.debug": true,          
- 	        "target.macros_add" : [
-                "LED_RED=NC"
-            ]
+            "sd.SPI_MOSI": "SPI_PSELMOSI0",
+            "sd.SPI_MISO": "SPI_PSELMISO0",
+            "sd.SPI_CLK": "SPI_PSELSCK0",
+            "sd.SPI_CS": "P1_5",
+ 	        "target.macros_add": [
+                "LED_RED=P1_13"
+            ],
+            "target.features_remove": [
+              "CRYPTOCELL310"
+            ],
+            "target.macros_remove": [
+              "MBEDTLS_CONFIG_HW_SUPPORT"
+            ]            
         },
         "K66F": {
             "target.network-default-interface-type" : "ETHERNET",
