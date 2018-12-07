@@ -205,9 +205,14 @@ void main_application(void)
     print_m2mobject_stats();
 #endif
 
+    printf("Before instancing SimpleM2MClient\r\n");
+    
+    
     // SimpleClient is used for registering and unregistering resources to a server.
     SimpleM2MClient mbedClient;
 
+    printf("Before application_init\r\n");
+    
     // application_init() runs the following initializations:
     //  1. platform initialization
     //  2. print memory statistics if MBED_HEAP_STATS_ENABLED is defined
@@ -217,6 +222,13 @@ void main_application(void)
         return;
     }
 
+    
+    printf("Instancing WiFi interface...\r\n");
+
+    static WiFiInterface *wifi_if = WiFiInterface::get_default_instance();
+    
+    (void) wifi_if;
+        
     // Save pointer to mbedClient so that other functions can access it.
     client = &mbedClient;
 
