@@ -3,7 +3,6 @@
 #define SEGGER_RTT_CONF_H
 //*********************************************************************
 
-#include "app_util_platform.h"
 
 /*********************************************************************
  *
@@ -27,8 +26,18 @@
 
 #define SEGGER_RTT_MODE_DEFAULT (SEGGER_RTT_MODE_BLOCK_IF_FIFO_FULL)  // Mode for pre-initialized terminal channel (buffer 0)
 
-#define SEGGER_RTT_LOCK() CRITICAL_REGION_ENTER()
+#ifdef TARGET_NRF52840_DK
+
+#include "app_util_platform.h"
+#define SEGGER_RTT_LOCK()   CRITICAL_REGION_ENTER()
 #define SEGGER_RTT_UNLOCK() CRITICAL_REGION_EXIT()
+
+#else
+
+#define SEGGER_RTT_LOCK()   while (0) {}
+#define SEGGER_RTT_UNLOCK() while (0) {}
+
+#endif
 
 /*********************************************************************
  *

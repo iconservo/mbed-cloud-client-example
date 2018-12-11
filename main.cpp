@@ -29,22 +29,10 @@
 
 #include "SeggerRTT.h"
 
-#if 1
+#if defined(TARGET_NRF52840_DK)
 FileHandle* mbed::mbed_override_console(int fd) {
     static SeggerRTT rtt;
     return &rtt;
-}
-#endif
-
-#ifndef WIFI_ESP8266
-#define WIFI_ESP8266 0
-#endif
-
-#if WIFI_ESP8266
-#include "ESP8266Interface.h"
-WiFiInterface *WiFiInterface::get_default_instance() {
-    static ESP8266Interface esp(MBED_CONF_ESP8266_TX, MBED_CONF_ESP8266_RX, MBED_CONF_ESP8266_DEBUG);
-    return &esp;
 }
 #endif
 
@@ -206,8 +194,7 @@ void main_application(void)
 #endif
 
     printf("Before instancing SimpleM2MClient\r\n");
-    
-    
+        
     // SimpleClient is used for registering and unregistering resources to a server.
     SimpleM2MClient mbedClient;
 
@@ -222,13 +209,7 @@ void main_application(void)
         return;
     }
 
-    
-    printf("Instancing WiFi interface...\r\n");
-
-    static WiFiInterface *wifi_if = WiFiInterface::get_default_instance();
-    
-    (void) wifi_if;
-        
+            
     // Save pointer to mbedClient so that other functions can access it.
     client = &mbedClient;
 

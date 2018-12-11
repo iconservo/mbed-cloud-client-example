@@ -49,6 +49,7 @@ public:
     SimpleM2MClient() :
         _registered(false),
         _register_called(false){
+        printf("SimpleM2MClient::SimpleM2MClient\r\n");
     }
 
     bool call_register() {
