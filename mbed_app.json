@@ -34,33 +34,37 @@
             "update-client.application-details"     : "(40*1024)",
             "esp8266.rx": "D0",
             "esp8266.tx": "D1",
-            "esp8266.debug": false            
+            "esp8266.debug": false
         },
         "NRF52840_DK": {
             "target.network-default-interface-type" : "WIFI",
             "target.bootloader_img"                 : "bootloader/mbed-bootloader-NRF52840_DK.hex",
-	        "target.app_offset"                     : "0x33000",
+            "target.app_offset"                     : "0x33000",
             "target.header_offset"                  : "0x32C00",
-            "update-client.bootloader-details"      : "0x00007188",            
+            "update-client.bootloader-details"      : "0x00007188",
             "update-client.application-details"     : "((512+508)*1024)",
             "update-client.storage-address"         : "((512+236)*1024)",
             "update-client.storage-size"            : "((512+228)*1024)",
             "update-client.storage-locations"       : 1,
-            "update-client.storage-page"            : 4 ,           
+            "update-client.storage-page"            : 4,
+            "client_app.sotp-section-1-address"     : "(0xF0000)",
+            "client_app.sotp-section-1-size"        : "(4*1024)",
+            "client_app.sotp-section-2-address"     : "(0xF0000 + 8 * 1024)",
+            "client_app.sotp-section-2-size"        : "(4*1024)",
             "esp8266.rx": "P1_9",
             "esp8266.tx": "P0_6",
             "esp8266.provide-default": true,
-            "esp8266.debug": true,          
+            "esp8266.debug": true,
             "sd.SPI_MOSI": "SPI_PSELMOSI0",
             "sd.SPI_MISO": "SPI_PSELMISO0",
             "sd.SPI_CLK": "SPI_PSELSCK0",
             "sd.SPI_CS": "P1_5",
- 	        "target.macros_add": [
+            "target.macros_add": [
                "LED_RED=P1_13",
                "PAL_USE_HW_ROT=0",
                "PAL_USE_HW_RTC=0",
                "PAL_USE_INTERNAL_FLASH=1",
-               "SYS_CONF_SOTP=SYS_CONF_SOTP_LIMITED"
+               "SYS_CONF_SOTP=SYS_CONF_SOTP_ENABLED"
             ],
             "target.features_remove"                : ["CRYPTOCELL310"],
             "target.macros_remove"                  : ["MBEDTLS_CONFIG_HW_SUPPORT"]
@@ -109,6 +113,6 @@
         "led-pinname"   : {
             "help"      : "PinName for led, which is attached to led blink resource.",
             "value"     : "LED_RED"
-        }     
+        }
     }
 }

@@ -206,8 +206,6 @@ static bool application_init_fcc(void)
     }
 #endif
 
-    return 0; //!FIXME
-
     status = application_init_verify_cloud_configuration();
     if (status != 0) {
     // This is designed to simplify user-experience by auto-formatting the
