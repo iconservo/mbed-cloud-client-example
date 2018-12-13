@@ -28,6 +28,7 @@
 #endif
 
 #include "SeggerRTT.h"
+#include "nrf_gpio.h"
 
 #if defined(TARGET_NRF52840_DK)
 FileHandle* mbed::mbed_override_console(int fd) {
@@ -45,7 +46,29 @@ int main(void)
 {       
     wait(0.5);
     printf("\r\n\r\nHello world!\r\n");
-    
+
+#if defined(TARGET_NRF52840_DK)
+    // Set WINC1500 CS to high
+    static DigitalOut winc1500_cs_pin(WINC1500_CS, 1);
+
+    // Config "High drive '0', high drive '1'" for spif-driver.SPI_CLK pin
+    nrf_gpio_cfg(MBED_CONF_SPIF_DRIVER_SPI_CLK,
+                 NRF_GPIO_PIN_DIR_INPUT,
+                 NRF_GPIO_PIN_INPUT_CONNECT,
+                 NRF_GPIO_PIN_NOPULL,
+				 NRF_GPIO_PIN_H0H1,
+                 NRF_GPIO_PIN_NOSENSE);
+
+    // Config "High drive '0', high drive '1'" for spif-driver.SPI_MOSI pin
+    nrf_gpio_cfg(MBED_CONF_SPIF_DRIVER_SPI_MOSI,
+                 NRF_GPIO_PIN_DIR_INPUT,
+                 NRF_GPIO_PIN_INPUT_CONNECT,
+                 NRF_GPIO_PIN_NOPULL,
+				 NRF_GPIO_PIN_H0H1,
+                 NRF_GPIO_PIN_NOSENSE);
+#endif
+
+
 #if 0    
     wait(0.5);    
     for (;;) {

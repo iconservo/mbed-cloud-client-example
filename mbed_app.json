@@ -52,6 +52,7 @@
             "client_app.sotp-section-1-size"        : "(4*1024)",
             "client_app.sotp-section-2-address"     : "(0xF0000 + 8 * 1024)",
             "client_app.sotp-section-2-size"        : "(4*1024)",
+            "client_app.primary_partition_size"     : "(2048*1024)",
             "esp8266.rx": "P1_9",
             "esp8266.tx": "P0_6",
             "esp8266.provide-default": true,
@@ -59,16 +60,18 @@
             "spif-driver.SPI_MOSI": "P0_25",
             "spif-driver.SPI_MISO": "P0_28",
             "spif-driver.SPI_CLK": "P0_29",
-            "spif-driver.SPI_CS": "P0_24",          
+            "spif-driver.SPI_CS": "P0_24", 
+            "spif-driver.SPI_FREQ": "10000000",
             "target.macros_add": [
                "LED_RED=P1_13",
                "PAL_USE_HW_ROT=0",
                "PAL_USE_HW_RTC=0",
                "PAL_USE_INTERNAL_FLASH=1",
-               "SYS_CONF_SOTP=SYS_CONF_SOTP_ENABLED"          
+               "SYS_CONF_SOTP=SYS_CONF_SOTP_ENABLED",
+               "WINC1500_CS=P0_12"          
             ],
             "target.macros_remove"                  : ["MBEDTLS_CONFIG_HW_SUPPORT"],
-            "target.features_remove"                : ["CRYPTOCELL310", "SD"],
+            "target.features_remove"                : ["CRYPTOCELL310"],
             "target.components_remove"              : ["SD"],
             "target.components_add"                 : ["SPIF"]
         },

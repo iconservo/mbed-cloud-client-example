@@ -217,6 +217,41 @@ int mcc_platform_reformat_storage(void) {
    return status;
 }
 
+
+void listdir(const char *name, int indent)
+{
+    DIR *dir;
+    int err;
+    struct dirent *entry;
+
+    if (!(dir = opendir(name))) {
+        printf("error: %s (%d)\n", strerror(errno), -errno);
+        return;
+    }
+    while ((entry = readdir(dir)) != NULL) {
+        if (entry->d_type == DT_DIR) {
+            char path[1024];
+            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+                continue;
+            snprintf(path, sizeof(path), "%s/%s", name, entry->d_name);
+            printf("%*s[%s]\n", indent, "", entry->d_name);
+            listdir(path, indent + 2);
+        } else {
+            printf("%*s%s\n", indent, "", entry->d_name);
+        }
+    }
+    err = closedir(dir);
+    if (err < 0) {
+        printf("error: %s (%d)\n", strerror(errno), -errno);
+    }
+}
+
+void list_fs_root() {
+    // Display the root directory content
+    printf("PAL_FS_MOUNT_POINT_PRIMARY = %s :\n", PAL_FS_MOUNT_POINT_PRIMARY);
+    listdir(PAL_FS_MOUNT_POINT_PRIMARY, 2);
+}    
+
 /* help function for testing filesystem availbility by umount and
  * mount filesystem again.
  * */
@@ -233,6 +268,8 @@ static int mcc_platform_test_filesystem(FileSystem *fs, BlockDevice* part) {
         printf("mcc_platform_test_filesystem() - mount fail %d.\n", status);
         return -1;
     }
+    // list files
+    list_fs_root();
     return status;
 }
 
