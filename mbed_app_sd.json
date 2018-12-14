@@ -9,6 +9,7 @@
     "target_overrides": {
         "*": {
             "target.features_add"               : ["BOOTLOADER", "STORAGE"],
+            "target.components_add"             : ["SD"],
             "platform.stdio-baud-rate"          : 115200,
             "platform.stdio-convert-newlines"   : true,
             "platform.stdio-buffered-serial"    : true,
@@ -24,12 +25,10 @@
             "platform.memory-tracing-enabled": true
         },
         "STM_EMAC": {
-            "target.components_add"                 : ["SD"],
             "lwip.pbuf-pool-size" : 16,
             "lwip.mem-size"       : 12500
         },
         "K64F": {
-            "target.components_add"                 : ["SD"],
             "target.network-default-interface-type" : "WIFI",
             "update-client.bootloader-details"      : "0x00007188",
             "update-client.application-details"     : "(40*1024)",
@@ -52,48 +51,35 @@
             "client_app.sotp-section-1-size"        : "(4*1024)",
             "client_app.sotp-section-2-address"     : "(0xF0000 + 8 * 1024)",
             "client_app.sotp-section-2-size"        : "(4*1024)",
-            "client_app.primary_partition_size"     : "(2048*1024)",
-            "client_app.partition_mode"             : 1,
             "esp8266.rx": "P1_9",
             "esp8266.tx": "P0_6",
             "esp8266.provide-default": true,
             "esp8266.debug": true,
-            "spif-driver.SPI_MOSI": "P0_25",
-            "spif-driver.SPI_MISO": "P0_28",
-            "spif-driver.SPI_CLK": "P0_29",
-            "spif-driver.SPI_CS": "P0_24", 
-            "spif-driver.SPI_FREQ": "10000000",
-            "littlefs.enable_info": true,
-            "littlefs.enable_warn": true,
-            "littlefs.enable_error": true,
+            "sd.SPI_MOSI": "SPI_PSELMOSI0",
+            "sd.SPI_MISO": "SPI_PSELMISO0",
+            "sd.SPI_CLK": "SPI_PSELSCK0",
+            "sd.SPI_CS": "P1_5",
             "target.macros_add": [
                "LED_RED=P1_13",
                "PAL_USE_HW_ROT=0",
                "PAL_USE_HW_RTC=0",
                "PAL_USE_INTERNAL_FLASH=1",
-               "SYS_CONF_SOTP=SYS_CONF_SOTP_ENABLED",
-               "WINC1500_CS=P0_12",
-               "EMBIGGEN_2=1"          
+               "SYS_CONF_SOTP=SYS_CONF_SOTP_ENABLED"
             ],
-            "target.macros_remove"                  : ["MBEDTLS_CONFIG_HW_SUPPORT"],
             "target.features_remove"                : ["CRYPTOCELL310"],
-            "target.components_remove"              : ["SD"],
-            "target.components_add"                 : ["SPIF"]
+            "target.macros_remove"                  : ["MBEDTLS_CONFIG_HW_SUPPORT"]
         },
         "K66F": {
-            "target.components_add"                 : ["SD"],
             "target.network-default-interface-type" : "ETHERNET",
             "update-client.bootloader-details"      : "0x00007188",
             "update-client.application-details"     : "(40*1024)"
         },
         "NUCLEO_F429ZI": {
-            "target.components_add"                 : ["SD"],
             "target.network-default-interface-type" : "ETHERNET",
             "update-client.bootloader-details"      : "0x080078CC",
             "update-client.application-details"     : "(0x08000000+64*1024)"
         },
         "UBLOX_EVK_ODIN_W2": {
-            "target.components_add"                 : ["SD"],
             "target.network-default-interface-type" : "WIFI",
             "update-client.bootloader-details"      : "0x08007300",
             "update-client.application-details"     : "(0x08000000+64*1024)",
@@ -101,7 +87,6 @@
             "target.macros_remove"                  : ["MBEDTLS_CONFIG_HW_SUPPORT"]
         },
         "NUCLEO_F411RE": {
-            "target.components_add"                 : ["SD"],
             "client_app.mbedtls-user-config-file"      : "\"mbedTLSConfig_mbedOS_SW_TRNG.h\"",
             "client_app.pal-user-defined-configuration": "\"sotp_non_trng_config_MbedOS.h\"",
             "target.network-default-interface-type" : "WIFI",

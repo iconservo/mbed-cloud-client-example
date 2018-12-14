@@ -42,12 +42,37 @@ static Blinky blinky;
 
 static void main_application(void);
 
+
+#include "BlockDevice.h"
+#include "FileSystem.h"
+#include "FATFileSystem.h"
+#include "LittleFileSystem.h"
+
+using namespace mbed;
+
+#if 0
+FileSystem *FileSystem::get_default_instance()
+{
+#if COMPONENT_SPIF 
+    static LittleFileSystem flash("flash", BlockDevice::get_default_instance());
+    flash.set_as_default();
+    return &flash;
+#elif COMPONENT_SD
+    static FATFileSystem sdcard("sd", BlockDevice::get_default_instance());
+    sdcard.set_as_default();
+    return &sdcard;
+#else
+    return NULL;
+#endif
+}
+#endif
+
 int main(void)
 {       
     wait(0.5);
     printf("\r\n\r\nHello world!\r\n");
 
-#if defined(TARGET_NRF52840_DK)
+#if (defined(TARGET_NRF52840_DK) && EMBIGGEN_2)
     // Set WINC1500 CS to high
     static DigitalOut winc1500_cs_pin(WINC1500_CS, 1);
 
@@ -66,6 +91,20 @@ int main(void)
                  NRF_GPIO_PIN_NOPULL,
 				 NRF_GPIO_PIN_H0H1,
                  NRF_GPIO_PIN_NOSENSE);
+
+#if 0
+    printf("Erasing SPI flash...\n");
+    BlockDevice *bd = BlockDevice::get_default_instance();
+    int err = bd->init();
+    printf("Init %s\n", (err ? "Fail :(" : "OK"));
+    if (!err) {
+        bd_size_t fl_size = bd->size();
+        err = bd->erase(0, fl_size);
+        printf("%s\n", (err ? "Fail :(" : "OK"));
+    }
+    bd->deinit();                 
+#endif
+
 #endif
 
 

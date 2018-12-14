@@ -47,7 +47,8 @@
 #include "pal.h"
 #if (MCC_PLATFORM_PARTITION_MODE == 1)
 #include "MBRBlockDevice.h"
-#include "FATFileSystem.h"
+//#include "FATFileSystem.h"
+#include "LittleFileSystem.h"
 
 // Set to 1 for enabling automatic partitioning storage if required. This is effective only if MCC_PLATFORM_PARTITION_MODE is defined to 1.
 // Partioning will be triggered only if initialization of available partitions fail.
@@ -105,6 +106,7 @@ static int mcc_platform_init_and_mount_partition(FileSystem **fs, BlockDevice** 
 static int mcc_platform_create_partitions();
 #endif
 #endif
+void list_fs_root();
 
 ////////////////////////////////////////
 // PLATFORM SPECIFIC DEFINES & FUNCTIONS
@@ -187,6 +189,8 @@ static int mcc_platform_reformat_partition(FileSystem *fs, BlockDevice* part) {
     if (status != 0) {
         printf("Reformat partition failed with error %d\n", status);
     }
+
+    list_fs_root();
 
     return status;
 }
@@ -297,7 +301,8 @@ static int mcc_platform_init_and_mount_partition(FileSystem **fs, BlockDevice** 
             return status;
         }
         /* This next change mean that filesystem will be FAT. */
-        *fs = new FATFileSystem(mount_point, &(**part));  /* this also mount fs. */
+        //*fs = new FATFileSystem(mount_point, &(**part));  /* this also mount fs. */
+        *fs = new LittleFileSystem(mount_point, &(**part));  /* this also mount fs. */
      }
      // re-init and format.
      else {
