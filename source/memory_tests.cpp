@@ -56,6 +56,11 @@ void print_heap_stats()
     printf("**** max_size    : %" PRIu32 "\n", stats.max_size);
 }
 
+extern "C" void print_heap_stats_c(void)
+{
+    print_heap_stats();
+}
+
 void create_m2mobject_test_set(M2MObjectList& object_list)
 {
     printf("*************************************\n");
@@ -237,5 +242,11 @@ void print_stack_statistics()
     }
     printf("*****************************\n\n");
 }
+
+extern "C" void print_stack_statistics_c(void)
+{
+    print_stack_statistics();
+}
+
 #endif // MBED_STACK_STATS_ENABLED
 #endif // TARGET_LIKE_MBED

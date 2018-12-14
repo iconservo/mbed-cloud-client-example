@@ -92,7 +92,7 @@ int main(void)
 				 NRF_GPIO_PIN_H0H1,
                  NRF_GPIO_PIN_NOSENSE);
 
-#if 0
+#if 1
     printf("Erasing SPI flash...\n");
     BlockDevice *bd = BlockDevice::get_default_instance();
     int err = bd->init();
@@ -275,8 +275,8 @@ void main_application(void)
     // Save pointer to mbedClient so that other functions can access it.
     client = &mbedClient;
 
-#ifdef MBED_HEAP_STATS_ENABLED
     printf("Client initialized\r\n");
+#ifdef MBED_HEAP_STATS_ENABLED
     print_heap_stats();
 #endif
 #ifdef MBED_STACK_STATS_ENABLED

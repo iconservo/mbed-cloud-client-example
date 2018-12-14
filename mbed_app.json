@@ -17,7 +17,7 @@
             "update-client.storage-address"     : "(1024*1024*64)",
             "update-client.storage-size"        : "(1024*1024*2)",
             "update-client.storage-locations"   : 1,
-            "mbed-trace.enable": true,
+            "mbed-trace.enable": null,
             "nsapi.default-wifi-security"       : "WPA_WPA2",
             "nsapi.default-wifi-ssid"           : "\"CiklumBiowaveLabs\"",
             "nsapi.default-wifi-password"       : "\"Biowave_is_the_best\"",
@@ -128,6 +128,12 @@
         "led-pinname"   : {
             "help"      : "PinName for led, which is attached to led blink resource.",
             "value"     : "LED_RED"
+        },
+        "main-stack-size": {
+            "value": 6144
+        },
+        "thread-stack-size": {
+            "value": 2048
         }
     }
 }
