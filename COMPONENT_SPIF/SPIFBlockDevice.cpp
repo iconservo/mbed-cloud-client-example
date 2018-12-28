@@ -16,7 +16,6 @@
 
 #include "SPIFBlockDevice.h"
 #include "mbed_critical.h"
-#include "CustomSPI.h"
 
 #include <string.h>
 #include "mbed_wait_api.h"
@@ -106,6 +105,7 @@ SPIFBlockDevice::SPIFBlockDevice(
     PinName mosi, PinName miso, PinName sclk, PinName csel, int freq)
     : _spi(mosi, miso, sclk), _cs(csel), _device_size_bytes(0), _is_initialized(false), _init_ref_count(0)
 {
+    tr_info("SPIFBlockDevice constructor entry point");
     _address_size = SPIF_ADDR_SIZE_3_BYTES;
     // Initial SFDP read tables are read with 8 dummy cycles
     // Default Bus Setup 1_1_1 with 0 dummy and mode cycles
@@ -489,12 +489,13 @@ spif_bd_error SPIFBlockDevice::_spi_send_read_command(int read_inst, uint8_t *bu
     int dummy_byte = 0;
 
     // csel must go low for the entire command (Inst, Address and Data)
+    _spi.lock();
     _cs = 0;
 
     // Write 1 byte Instruction
 
     // _spi.write(read_inst);
-    _spi.write_with_lock(read_inst);
+    _spi.write_without_mutex(read_inst);
     
     // Write Address (can be either 3 or 4 bytes long)
     for (int address_shift = ((_address_size - 1) * 8); address_shift >= 0; address_shift -= 8) {
@@ -527,31 +528,30 @@ spif_bd_error SPIFBlockDevice::_spi_send_program_command(int prog_inst, const vo
     uint8_t *data = (uint8_t *)buffer;
 
     // csel must go low for the entire command (Inst, Address and Data)
-
     _spi.lock();
     _cs = 0;
     
     // Write 1 byte Instruction
-    _spi.write(prog_inst);
+    _spi.write_without_mutex(prog_inst);
 
     // Write Address (can be either 3 or 4 bytes long)
     for (int address_shift = ((_address_size - 1) * 8); address_shift >= 0; address_shift -= 8) {
-        _spi.write((addr >> address_shift) & 0xFF);
+        _spi.write_without_mutex((addr >> address_shift) & 0xFF);
     }
 
     // Write Dummy Cycles Bytes
     for (uint32_t i = 0; i < dummy_bytes; i++) {
-        _spi.write(dummy_byte);
+        _spi.write_without_mutex(dummy_byte);
     }
 
     // Write Data
     for (bd_size_t i = 0; i < size; i++) {
-        _spi.write(data[i]);
+        _spi.write_without_mutex(data[i]);
     }
 
     // csel back to high
-    _spi.unlock();
     _cs = 1;
+    _spi.unlock();
 
     return SPIF_BD_ERROR_OK;
 }
@@ -576,27 +576,27 @@ spif_bd_error SPIFBlockDevice::_spi_send_general_command(int instruction, bd_add
     _cs = 0;
 
     // Write 1 byte Instruction
-    _spi.write(instruction);
+    _spi.write_without_mutex(instruction);
 
     // Reading SPI Bus registers does not require Flash Address
     if (addr != SPI_NO_ADDRESS_COMMAND) {
         // Write Address (can be either 3 or 4 bytes long)
         for (int address_shift = ((_address_size - 1) * 8); address_shift >= 0; address_shift -= 8) {
-            _spi.write((addr >> address_shift) & 0xFF);
+            _spi.write_without_mutex((addr >> address_shift) & 0xFF);
         }
 
         // Write Dummy Cycles Bytes
         for (uint32_t i = 0; i < dummy_bytes; i++) {
-            _spi.write(dummy_byte);
+            _spi.write_without_mutex(dummy_byte);
         }
     }
 
     // Read/Write Data
-    _spi.write(tx_buffer, (int)tx_length, rx_buffer, (int)rx_length);
+    _spi.write_without_mutex(tx_buffer, (int)tx_length, rx_buffer, (int)rx_length);
 
     // csel back to high
-    _spi.unlock();
     _cs = 1;
+    _spi.unlock();
 
     return SPIF_BD_ERROR_OK;
 }
