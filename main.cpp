@@ -29,8 +29,9 @@
 
 #include "SeggerRTT.h"
 #include "nrf_gpio.h"
+#include "WINC1500Interface.h"
 
-#if defined(TARGET_NRF52840_DK)
+#if defined(EMBIGGEN_2)
 FileHandle* mbed::mbed_override_console(int fd) {
     static SeggerRTT rtt;
     return &rtt;
@@ -67,32 +68,16 @@ FileSystem *FileSystem::get_default_instance()
 }
 #endif
 
+static NetworkInterface* network_interface=NULL;
+// static DigitalOut lp_pin(P0_23, 1);
+
 int main(void)
 {       
-    wait(0.5);
     printf("\r\n\r\nHello world!\r\n");
+    wait(0.5);
+    // DigitalOut lp_pin(P0_23, 1);
+    // lp_pin.write(1);
 
-#if (defined(TARGET_NRF52840_DK) && EMBIGGEN_2)
-    // Set WINC1500 CS to high
-    static DigitalOut winc1500_cs_pin(WINC1500_CS, 1);
-
-    // Config "High drive '0', high drive '1'" for spif-driver.SPI_CLK pin
-    nrf_gpio_cfg(MBED_CONF_SPIF_DRIVER_SPI_CLK,
-                 NRF_GPIO_PIN_DIR_INPUT,
-                 NRF_GPIO_PIN_INPUT_CONNECT,
-                 NRF_GPIO_PIN_NOPULL,
-				 NRF_GPIO_PIN_H0H1,
-                 NRF_GPIO_PIN_NOSENSE);
-
-    // Config "High drive '0', high drive '1'" for spif-driver.SPI_MOSI pin
-    nrf_gpio_cfg(MBED_CONF_SPIF_DRIVER_SPI_MOSI,
-                 NRF_GPIO_PIN_DIR_INPUT,
-                 NRF_GPIO_PIN_INPUT_CONNECT,
-                 NRF_GPIO_PIN_NOPULL,
-				 NRF_GPIO_PIN_H0H1,
-                 NRF_GPIO_PIN_NOSENSE);
-
-#if 1
     printf("Erasing SPI flash...\n");
     BlockDevice *bd = BlockDevice::get_default_instance();
     int err = bd->init();
@@ -102,19 +87,62 @@ int main(void)
         err = bd->erase(0, fl_size);
         printf("%s\n", (err ? "Fail :(" : "OK"));
     }
-    bd->deinit();                 
-#endif
+    bd->deinit();               
 
-#endif
+    // wait(1);
+    // WiFiInterface* test_wifi = &WINC1500Interface::getInstance();
+    // wait(1);
+    // while(1);
 
+    // wait(0.5);
+    // network_interface = NetworkInterface::get_default_instance();
+    // if(network_interface == NULL) {
+    //     printf("ERROR: No NetworkInterface found!\n");
+    //     return -1;
+    // }
 
-#if 0    
-    wait(0.5);    
-    for (;;) {
-        printf("tick!\r\n");
-        wait(0.5);        
-    }
-#endif   
+// #if (defined(TARGET_NRF52840_DK) && EMBIGGEN_2)
+//     // Set WINC1500 CS to high
+//     static DigitalOut winc1500_cs_pin(WINC1500_CS, 1);
+
+//     // Config "High drive '0', high drive '1'" for spif-driver.SPI_CLK pin
+//     nrf_gpio_cfg(MBED_CONF_SPIF_DRIVER_SPI_CLK,
+//                  NRF_GPIO_PIN_DIR_INPUT,
+//                  NRF_GPIO_PIN_INPUT_CONNECT,
+//                  NRF_GPIO_PIN_NOPULL,
+// 				 NRF_GPIO_PIN_H0H1,
+//                  NRF_GPIO_PIN_NOSENSE);
+
+//     // Config "High drive '0', high drive '1'" for spif-driver.SPI_MOSI pin
+//     nrf_gpio_cfg(MBED_CONF_SPIF_DRIVER_SPI_MOSI,
+//                  NRF_GPIO_PIN_DIR_INPUT,
+//                  NRF_GPIO_PIN_INPUT_CONNECT,
+//                  NRF_GPIO_PIN_NOPULL,
+// 				 NRF_GPIO_PIN_H0H1,
+//                  NRF_GPIO_PIN_NOSENSE);
+
+// #if 1
+//     printf("Erasing SPI flash...\n");
+//     BlockDevice *bd = BlockDevice::get_default_instance();
+//     int err = bd->init();
+//     printf("Init %s\n", (err ? "Fail :(" : "OK"));
+//     if (!err) {
+//         bd_size_t fl_size = bd->size();
+//         err = bd->erase(0, fl_size);
+//         printf("%s\n", (err ? "Fail :(" : "OK"));
+//     }
+//     bd->deinit();                 
+// #endif
+
+// #endif
+
+// #if 0    
+//     wait(0.5);    
+//     for (;;) {
+//         printf("tick!\r\n");
+//         wait(0.5);        
+//     }
+// #endif   
     
     mcc_platform_run_program(main_application);
 }
