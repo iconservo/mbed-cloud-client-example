@@ -68,38 +68,112 @@ FileSystem *FileSystem::get_default_instance()
 }
 #endif
 
-static NetworkInterface* network_interface=NULL;
-// static DigitalOut lp_pin(P0_23, 1);
+void stress_test1_recv() {
+    //testing recv functionality    
+    WiFiInterface* wifi = WiFiInterface::get_default_instance();
+    if (!wifi) {
+        printf("ERROR: No WiFiInterface found.\n");
+        // return -1;
+    }
+
+    printf("\nConnecting to %s...\n", MBED_CONF_NSAPI_DEFAULT_WIFI_SSID);
+    int ret = wifi->connect(MBED_CONF_NSAPI_DEFAULT_WIFI_SSID, MBED_CONF_NSAPI_DEFAULT_WIFI_PASSWORD, NSAPI_SECURITY_WPA_WPA2, M2M_WIFI_CH_ALL);
+    if (ret != 0) {
+        printf("\nConnection error: %d\n", ret);
+        // return -1;
+    }
+
+    printf("Success\n\n");
+    printf("MAC: %s\n", wifi->get_mac_address());
+    printf("IP: %s\n", wifi->get_ip_address());
+    printf("Netmask: %s\n", wifi->get_netmask());
+    printf("Gateway: %s\n", wifi->get_gateway());
+    printf("RSSI: %d\n\n", wifi->get_rssi());
+
+    TCPSocket socket;
+    nsapi_error_t response;
+
+    // Open a socket on the network interface, and create a TCP connection to www.arm.com
+    response = socket.open(wifi);
+    if(0 != response) {
+        printf("socket.open() failed: %d\n", response);
+        // return;
+    }
+
+    response = socket.connect("192.168.1.164", 8080);
+    if(0 != response) {
+        printf("Error connecting: %d\n", response);
+        socket.close();
+        // return;
+    }
+
+    printf("Connected! \n");
+
+
+    //Send a simple http request
+    char sbuffer[] = "GET / HTTP/1.1\r\nHost: api.ipify.org\r\nConnection: close\r\n\r\n";
+    nsapi_size_t size = strlen(sbuffer);
+
+    // Loop until whole request send
+    while(size) {
+        response = socket.send(sbuffer+response, size);
+        if (response < 0) {
+            printf("Error sending data: %d\n", response);
+            socket.close();
+            // return;
+        }
+    
+        size -= response;
+        printf("sent %d [%.*s]\n", response, strstr(sbuffer, "\r\n")-sbuffer, sbuffer);
+    }
+
+    //Receieve a simple http response and print out the response line
+    char rbuffer[1024];
+    uint16_t received_bytes = 0;
+    uint16_t needed_to_receive = 1024;
+    int chunk_size = 32;
+
+    while(received_bytes < needed_to_receive)
+    {
+        uint16_t result = socket.recv((void *)rbuffer[received_bytes], chunk_size);
+        if (response < 0) {
+        printf("Error receiving data: %d\n", response);
+        } else {
+            char dummy_string[100];
+            sprintf(dummy_string, "Received: (%.*s)\n", 32, rbuffer[received_bytes]);
+            printf(dummy_string);
+
+            received_bytes += result;
+        }
+    }    
+    //todo: add datacheck
+
+    //Close the socket to return its memory and bring down the network interface
+    socket.close();
+}
 
 int main(void)
 {       
     printf("\r\n\r\nHello world!\r\n");
-    wait(0.5);
+    wait(0.6);
+
     // DigitalOut lp_pin(P0_23, 1);
     // lp_pin.write(1);
 
-    printf("Erasing SPI flash...\n");
-    BlockDevice *bd = BlockDevice::get_default_instance();
-    int err = bd->init();
-    printf("Init %s\n", (err ? "Fail :(" : "OK"));
-    if (!err) {
-        bd_size_t fl_size = bd->size();
-        err = bd->erase(0, fl_size);
-        printf("%s\n", (err ? "Fail :(" : "OK"));
-    }
-    bd->deinit();               
+    //testing recv functitnality
+    stress_test1_recv();
 
-    // wait(1);
-    // WiFiInterface* test_wifi = &WINC1500Interface::getInstance();
-    // wait(1);
-    // while(1);
-
-    // wait(0.5);
-    // network_interface = NetworkInterface::get_default_instance();
-    // if(network_interface == NULL) {
-    //     printf("ERROR: No NetworkInterface found!\n");
-    //     return -1;
+    // printf("Erasing SPI flash...\n");
+    // BlockDevice *bd = BlockDevice::get_default_instance();
+    // int err = bd->init();
+    // printf("Init %s\n", (err ? "Fail :(" : "OK"));
+    // if (!err) {
+    //     bd_size_t fl_size = bd->size();
+    //     err = bd->erase(0, fl_size);
+    //     printf("%s\n", (err ? "Fail :(" : "OK"));
     // }
+    // bd->deinit();               
+
 
 // #if (defined(TARGET_NRF52840_DK) && EMBIGGEN_2)
 //     // Set WINC1500 CS to high
@@ -144,7 +218,7 @@ int main(void)
 //     }
 // #endif   
     
-    mcc_platform_run_program(main_application);
+    // mcc_platform_run_program(main_application);
 }
 
 // Pointers to the resources that will be created in main_application().

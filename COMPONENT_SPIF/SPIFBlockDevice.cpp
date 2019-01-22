@@ -731,7 +731,7 @@ int SPIFBlockDevice::_sfdp_parse_sfdp_headers(uint32_t& basic_table_addr, size_t
     sfdp_header_str[17] = '\0';
     memcpy(sfdp_header_str, sfdp_header, 16);
     tr_info("sfdp_header[] = {%x}", sfdp_header);
-    mbed_trace_array((const uint8_t *)sfdp_header, 16);
+    // mbed_trace_array((const uint8_t *)sfdp_header, 16);
     //printf("%s", sfdp_header_str);
 
     // Verify SFDP signature for sanity
