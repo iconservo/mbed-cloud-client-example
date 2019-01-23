@@ -129,21 +129,23 @@ void stress_test1_recv() {
 
     //Receieve a simple http response and print out the response line
     char rbuffer[1024];
+    char* rbuff_ptr = rbuffer;
     uint16_t received_bytes = 0;
     uint16_t needed_to_receive = 1024;
     int chunk_size = 32;
 
     while(received_bytes < needed_to_receive)
     {
-        uint16_t result = socket.recv((void *)rbuffer[received_bytes], chunk_size);
-        if (response < 0) {
-        printf("Error receiving data: %d\n", response);
+        uint16_t result = socket.recv(rbuff_ptr, chunk_size);
+        if (result < 0) {
+        printf("Error receiving data: %d\n", result);
         } else {
             char dummy_string[100];
-            sprintf(dummy_string, "Received: (%.*s)\n", 32, rbuffer[received_bytes]);
+            sprintf(dummy_string, "main.cpp: Received: (%.*s)\n", result, rbuff_ptr);
             printf(dummy_string);
 
             received_bytes += result;
+            rbuff_ptr += result;
         }
     }    
     //todo: add datacheck
