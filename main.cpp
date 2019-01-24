@@ -31,12 +31,10 @@
 #include "nrf_gpio.h"
 #include "WINC1500Interface.h"
 
-#if defined(EMBIGGEN_2)
 FileHandle* mbed::mbed_override_console(int fd) {
     static SeggerRTT rtt;
     return &rtt;
 }
-#endif
 
 // event based LED blinker, controlled via pattern_resource
 static Blinky blinky;
@@ -128,10 +126,10 @@ void stress_test1_recv() {
     }
 
     //Receieve a simple http response and print out the response line
-    char rbuffer[1024];
+    char rbuffer[2048];
     char* rbuff_ptr = rbuffer;
     uint16_t received_bytes = 0;
-    uint16_t needed_to_receive = 1024;
+    uint16_t needed_to_receive = 2048;
     int chunk_size = 32;
 
     while(received_bytes < needed_to_receive)
@@ -163,19 +161,20 @@ int main(void)
     // lp_pin.write(1);
 
     //testing recv functitnality
-    stress_test1_recv();
+    // stress_test1_recv();
 
-    // printf("Erasing SPI flash...\n");
-    // BlockDevice *bd = BlockDevice::get_default_instance();
-    // int err = bd->init();
-    // printf("Init %s\n", (err ? "Fail :(" : "OK"));
-    // if (!err) {
-    //     bd_size_t fl_size = bd->size();
-    //     err = bd->erase(0, fl_size);
-    //     printf("%s\n", (err ? "Fail :(" : "OK"));
-    // }
-    // bd->deinit();               
+    printf("Erasing SPI flash...\n");
+    BlockDevice *bd = BlockDevice::get_default_instance();
+    int err = bd->init();
+    printf("Init %s\n", (err ? "Fail :(" : "OK"));
+    if (!err) {
+        bd_size_t fl_size = bd->size();
+        err = bd->erase(0, fl_size);
+        printf("%s\n", (err ? "Fail :(" : "OK"));
+    }
+    bd->deinit();   
 
+    wait(2);
 
 // #if (defined(TARGET_NRF52840_DK) && EMBIGGEN_2)
 //     // Set WINC1500 CS to high
@@ -220,7 +219,7 @@ int main(void)
 //     }
 // #endif   
     
-    // mcc_platform_run_program(main_application);
+    mcc_platform_run_program(main_application);
 }
 
 // Pointers to the resources that will be created in main_application().
