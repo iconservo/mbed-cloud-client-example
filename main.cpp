@@ -126,10 +126,10 @@ void stress_test1_recv() {
     }
 
     //Receieve a simple http response and print out the response line
-    char rbuffer[2048];
+    char rbuffer[1024];
     char* rbuff_ptr = rbuffer;
     uint16_t received_bytes = 0;
-    uint16_t needed_to_receive = 2048;
+    uint16_t needed_to_receive = 1024;
     int chunk_size = 32;
 
     while(received_bytes < needed_to_receive)
@@ -148,6 +148,8 @@ void stress_test1_recv() {
     }    
     //todo: add datacheck
 
+    printf("\r\n\r\nReceived buffer contents: (%.*s)\r\n", needed_to_receive, &rbuffer[0]);
+
     //Close the socket to return its memory and bring down the network interface
     socket.close();
 }
@@ -161,7 +163,8 @@ int main(void)
     // lp_pin.write(1);
 
     //testing recv functitnality
-    // stress_test1_recv();
+    stress_test1_recv();
+    while(1);
 
     printf("Erasing SPI flash...\n");
     BlockDevice *bd = BlockDevice::get_default_instance();
