@@ -31,12 +31,14 @@
 #include "nrf_gpio.h"
 #include "WINC1500Interface.h"
 
-#if defined(EMBIGGEN_2)
+static SeggerRTT rtt;
+
+// #if defined(EMBIGGEN_2)
 FileHandle* mbed::mbed_override_console(int fd) {
-    static SeggerRTT rtt;
+
     return &rtt;
 }
-#endif
+// #endif
 
 // event based LED blinker, controlled via pattern_resource
 static Blinky blinky;
@@ -70,24 +72,36 @@ FileSystem *FileSystem::get_default_instance()
 
 static NetworkInterface* network_interface=NULL;
 // static DigitalOut lp_pin(P0_23, 1);
+int err_spi = 0;
 
 int main(void)
 {       
+    rtt.write("\r\n\r\nHello world!\r\n", strlen("\r\n\r\nHello world!\r\n"));
+    wait(1);
+
     printf("\r\n\r\nHello world!\r\n");
     wait(0.5);
     // DigitalOut lp_pin(P0_23, 1);
     // lp_pin.write(1);
+    err_spi = 0;
 
-    printf("Erasing SPI flash...\n");
-    BlockDevice *bd = BlockDevice::get_default_instance();
-    int err = bd->init();
-    printf("Init %s\n", (err ? "Fail :(" : "OK"));
-    if (!err) {
-        bd_size_t fl_size = bd->size();
-        err = bd->erase(0, fl_size);
-        printf("%s\n", (err ? "Fail :(" : "OK"));
-    }
-    bd->deinit();               
+    // network_interface = NetworkInterface::get_default_instance();
+    // if(network_interface == NULL) {
+    //     printf("ERROR: No NetworkInterface found!\n");
+    //     return -1;
+    // }
+
+    // printf("Erasing SPI flash...\n");
+    // BlockDevice *bd = BlockDevice::get_default_instance();
+    // int err = bd->init();
+    // printf("Init %s\n", (err ? "Fail :(" : "OK"));
+    // if (!err) {
+    //     bd_size_t fl_size = bd->size();
+    //     err = bd->erase(0, fl_size);
+    //     printf("%s\n", (err ? "Fail :(" : "OK"));
+    //     err_spi =1; 
+    // }
+    // bd->deinit();               
 
     // wait(1);
     // WiFiInterface* test_wifi = &WINC1500Interface::getInstance();
@@ -143,8 +157,16 @@ int main(void)
 //         wait(0.5);        
 //     }
 // #endif   
-    
+
+#ifdef MBED_STACK_STATS_ENABLED
+    print_stack_statistics();
+#endif
+#ifdef MBED_HEAP_STATS_ENABLED
+    print_m2mobject_stats();
+#endif
+
     mcc_platform_run_program(main_application);
+    while(1);
 }
 
 // Pointers to the resources that will be created in main_application().
@@ -254,11 +276,29 @@ void main_application(void)
         setlinebuf(stdout);
 #endif 
 
+    // if (err_spi) {
+    //     while(1) {
+    //         printf("Main Application\n" );
+    //         wait(2);
+    //     }
+    // }
+    printf("MCC main func entry point!\n" );
+
+#ifdef MBED_HEAP_STATS_ENABLED
+    print_m2mobject_stats();
+#endif
+#ifdef MBED_STACK_STATS_ENABLED
+    print_stack_statistics();
+#endif
+
+
     // Initialize trace-library first
     if (application_init_mbed_trace() != 0) {
         printf("Failed initializing mbed trace\n" );
         return;
     }
+    
+    printf("AFTER application_init_mbed_trace()!\n" );
 
     // Initialize storage
     if (mcc_platform_storage_init() != 0) {
@@ -266,11 +306,15 @@ void main_application(void)
         return;
     }
 
+    printf("AFTER mcc_platform_storage_init()!\n" );
+
     // Initialize platform-specific components
     if(mcc_platform_init() != 0) {
         printf("ERROR - platform_init() failed!\n");
         return;
     }
+
+    printf("AFTER mcc_platform_init()!\n" );
 
     // Print platform information
     mcc_platform_sw_build_info();
@@ -298,8 +342,9 @@ void main_application(void)
         printf("Initialization failed, exiting application!\n");
         return;
     }
+    
+    printf("AFTER application_init\r\n");
 
-            
     // Save pointer to mbedClient so that other functions can access it.
     client = &mbedClient;
 
@@ -310,6 +355,8 @@ void main_application(void)
 #ifdef MBED_STACK_STATS_ENABLED
     print_stack_statistics();
 #endif
+
+    printf("BEFORE ADDING RESOURCES\r\n");
 
     // Create resource for button count. Path of this resource will be: 3200/0/5501.
     button_res = mbedClient.add_cloud_resource(3200, 0, 5501, "button_resource", M2MResourceInstance::INTEGER,
@@ -333,7 +380,18 @@ void main_application(void)
     mbedClient.add_cloud_resource(5000, 0, 2, "factory_reset", M2MResourceInstance::STRING,
                  M2MBase::POST_ALLOWED, NULL, false, (void*)factory_reset, NULL);
 
+    printf("AFTER ADDING RESOURCES\r\n");
+
+#ifdef MBED_HEAP_STATS_ENABLED
+    print_heap_stats();
+#endif
+#ifdef MBED_STACK_STATS_ENABLED
+    print_stack_statistics();
+#endif
+
     mbedClient.register_and_connect();
+
+    printf("AFTER mbedClient.register_and_connect()\r\n");
 
 #ifndef MBED_CONF_MBED_CLOUD_CLIENT_DISABLE_CERTIFICATE_ENROLLMENT
     // Add certificate renewal callback

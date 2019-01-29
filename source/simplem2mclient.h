@@ -70,6 +70,10 @@ public:
             printf("Failed to initialize connection\n");
             return false;
         }
+        
+        printf("AFTER network platform setup\r\n");
+        return false;
+
 
 #ifdef MBED_CLOUD_CLIENT_SUPPORT_UPDATE
         /* Set callback functions for authorizing updates and monitoring progress.
@@ -237,12 +241,12 @@ public:
 #endif
 #ifdef MBED_STACK_STATS_ENABLED
         print_stack_statistics();
-#endif
+#endif 
         _cloud_client.add_objects(_obj_list);
 
         // Start registering to the cloud.
         call_register();
-
+           
         // Print memory statistics if the MBED_HEAP_STATS_ENABLED is defined.
 #ifdef MBED_HEAP_STATS_ENABLED
         printf("Register being called\r\n");

@@ -257,7 +257,7 @@ private:
 
 private:
     // Master side hardware
-    //mbed::SPI _spi;
+    // mbed::SPI _spi;
     
     CustomSPI _spi;
     // Enable CS control (low/high) for SPI driver operatios

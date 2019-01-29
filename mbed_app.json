@@ -126,7 +126,8 @@
                "PAL_USE_INTERNAL_FLASH=1",
                "SYS_CONF_SOTP=SYS_CONF_SOTP_ENABLED",
                "WINC1500_CS=P0_12",
-               "EMBIGGEN_2=0"          
+               "EMBIGGEN_2=0",
+               "MBEDTLS_DEBUG_C"          
             ],
             "target.macros_remove"                  : ["MBEDTLS_CONFIG_HW_SUPPORT"],
             "target.features_remove"                : ["CRYPTOCELL310"],
@@ -183,10 +184,10 @@
             "value"     : "LED_RED"
         },
         "main-stack-size": {
-            "value": 6144
+            "value": 65536
         },
         "thread-stack-size": {
-            "value": 2048
+            "value": 16384
         }
     }
 }
