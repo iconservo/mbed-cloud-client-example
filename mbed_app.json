@@ -110,7 +110,7 @@
             "winc1500.wifi-wakeup": "p16",
             "winc1500.wifi-irq": "p15",
             "winc1500.wifi-chip-enable": "p11",
-            "winc1500.enable_debug": true,
+            "winc1500.enable_debug": false,
             "spif-driver.SPI_MOSI": "p25",
             "spif-driver.SPI_MISO": "p28",
             "spif-driver.SPI_CLK": "p29",
@@ -188,6 +188,10 @@
         },
         "thread-stack-size": {
             "value": 16384
+        },
+        "trace-level": {
+            "macro_name": "MBED_TRACE_MAX_LEVEL",
+            "value": "TRACE_LEVEL_INFO"
         }
     }
 }
