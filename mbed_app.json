@@ -4,7 +4,8 @@
         "MBED_CLOUD_CLIENT_UPDATE_STORAGE=ARM_UCP_FLASHIAP_BLOCKDEVICE",
         "MBED_HEAP_STATS_ENABLED=1",
         "MBED_STACK_STATS_ENABLED=1",
-        "MBED_WINC1500_PROVIDE_DEFAULT=1"
+        "MBED_WINC1500_PROVIDE_DEFAULT=1",
+        "MBEDTLS_DEBUG_C"          
     ],
     "target_overrides": {
         "*": {
@@ -191,7 +192,7 @@
         },
         "trace-level": {
             "macro_name": "MBED_TRACE_MAX_LEVEL",
-            "value": "TRACE_LEVEL_INFO"
+            "value": "TRACE_LEVEL_DEBUG"
         }
     }
 }
