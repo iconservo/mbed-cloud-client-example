@@ -135,18 +135,18 @@ int main(void)
 // 				 NRF_GPIO_PIN_H0H1,
 //                  NRF_GPIO_PIN_NOSENSE);
 
-// #if 1
-//     printf("Erasing SPI flash...\n");
-//     BlockDevice *bd = BlockDevice::get_default_instance();
-//     int err = bd->init();
-//     printf("Init %s\n", (err ? "Fail :(" : "OK"));
-//     if (!err) {
-//         bd_size_t fl_size = bd->size();
-//         err = bd->erase(0, fl_size);
-//         printf("%s\n", (err ? "Fail :(" : "OK"));
-//     }
-//     bd->deinit();                 
-// #endif
+#if 1
+    printf("Erasing SPI flash...\n");
+    BlockDevice *bd = BlockDevice::get_default_instance();
+    int err = bd->init();
+    printf("Init %s\n", (err ? "Fail :(" : "OK"));
+    if (!err) {
+        bd_size_t fl_size = bd->size();
+        err = bd->erase(0, fl_size);
+        printf("%s\n", (err ? "Fail :(" : "OK"));
+    }
+    bd->deinit();                 
+#endif
 
 // #endif
 

@@ -4,8 +4,7 @@
         "MBED_CLOUD_CLIENT_UPDATE_STORAGE=ARM_UCP_FLASHIAP_BLOCKDEVICE",
         "MBED_HEAP_STATS_ENABLED=1",
         "MBED_STACK_STATS_ENABLED=1",
-        "MBED_WINC1500_PROVIDE_DEFAULT=1",
-        "MBEDTLS_DEBUG_C"          
+        "MBED_WINC1500_PROVIDE_DEFAULT=1"
     ],
     "target_overrides": {
         "*": {
@@ -18,7 +17,7 @@
             "update-client.storage-address"     : "(1024*1024*64)",
             "update-client.storage-size"        : "(1024*1024*2)",
             "update-client.storage-locations"   : 1,
-            "mbed-trace.enable": true,
+            "mbed-trace.enable": 1,
             "nsapi.default-wifi-security"       : "WPA_WPA2",
             "nsapi.default-wifi-ssid"           : "\"CiklumBiowaveLabs\"",
             "nsapi.default-wifi-password"       : "\"Biowave_is_the_best\"",
@@ -117,8 +116,8 @@
             "spif-driver.SPI_CLK": "p29",
             "spif-driver.SPI_CS": "p24", 
             "spif-driver.SPI_FREQ": "8000000",
-            "littlefs.enable_info": true,
-            "littlefs.enable_warn": true,
+            "littlefs.enable_info": false,
+            "littlefs.enable_warn": false,
             "littlefs.enable_error": true,
             "target.macros_add": [
                "LED_RED=p31",
@@ -127,8 +126,7 @@
                "PAL_USE_INTERNAL_FLASH=1",
                "SYS_CONF_SOTP=SYS_CONF_SOTP_ENABLED",
                "WINC1500_CS=P0_12",
-               "EMBIGGEN_2=0",
-               "MBEDTLS_DEBUG_C"          
+               "EMBIGGEN_2=0"
             ],
             "target.macros_remove"                  : ["MBEDTLS_CONFIG_HW_SUPPORT"],
             "target.features_remove"                : ["CRYPTOCELL310"],
@@ -185,10 +183,10 @@
             "value"     : "LED_RED"
         },
         "main-stack-size": {
-            "value": 65536
+            "value": 16384
         },
         "thread-stack-size": {
-            "value": 16384
+            "value": 8192
         },
         "trace-level": {
             "macro_name": "MBED_TRACE_MAX_LEVEL",
