@@ -30,6 +30,11 @@
 #include "SeggerRTT.h"
 #include "nrf_gpio.h"
 
+#include "mbed_trace.h"
+#define TRACE_GROUP  "main"
+
+#include "single-module-mbed-trace.h"
+
 #if defined(TARGET_NRF52840_DK)
 FileHandle* mbed::mbed_override_console(int fd) {
     static SeggerRTT rtt;
@@ -57,7 +62,7 @@ FileSystem *FileSystem::get_default_instance()
     static LittleFileSystem flash("flash", BlockDevice::get_default_instance());
     flash.set_as_default();
     return &flash;
-#elif COMPONENT_SD
+#elif COMPONENT_SDmbed_trace_init
     static FATFileSystem sdcard("sd", BlockDevice::get_default_instance());
     sdcard.set_as_default();
     return &sdcard;
@@ -71,6 +76,8 @@ int main(void)
 {       
     wait(0.5);
     printf("\r\n\r\nHello world!\r\n");
+    mbed_trace_init();
+    tr_debug("\r\n\r\nHello world!\r\n");
 
 #if (defined(TARGET_NRF52840_DK) && EMBIGGEN_2)
     // Set WINC1500 CS to high
@@ -115,6 +122,8 @@ int main(void)
         wait(0.5);        
     }
 #endif   
+
+    wait(3);
     
     mcc_platform_run_program(main_application);
 }

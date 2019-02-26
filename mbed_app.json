@@ -42,6 +42,7 @@
             "target.bootloader_img"                 : "bootloader/mbed-bootloader-NRF52840_DK.hex",
             "target.app_offset"                     : "0x33000",
             "target.header_offset"                  : "0x32C00",
+            "client_app.mbedtls-user-config-file"   : "\"mbedTLSConfig_mbedOS_user.h\"",
             "update-client.bootloader-details"      : "0x00007188",
             "update-client.application-details"     : "((512+508)*1024)",
             "update-client.storage-address"         : "((512+236)*1024)",
@@ -133,7 +134,7 @@
             "value": 6144
         },
         "thread-stack-size": {
-            "value": 2048
+            "value": 4096
         }
     }
 }
