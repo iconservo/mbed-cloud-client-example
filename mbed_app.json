@@ -191,6 +191,10 @@
         "trace-level": {
             "macro_name": "MBED_TRACE_MAX_LEVEL",
             "value": "TRACE_LEVEL_DEBUG"
+        },
+        "asf-printf": {
+            "help"      : "Function name for printing driver-level WINC1500 ASF messages",
+            "value"     : "printf"
         }
     }
 }
